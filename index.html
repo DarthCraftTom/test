@@ -3,161 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karel Novák | Poctivé řemeslo</title>
+    <title>Jakub | Mistr na všechno, co doma nefunguje</title>
     <style>
-        /* Základní reset a nastavení fontu */
+        /* Import moderního fontu */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+        /* CSS Proměnné pro snadnou změnu barev */
+        :root {
+            --primary: #f97316; /* Výrazná oranžová */
+            --primary-hover: #ea580c;
+            --bg-dark: #0f172a; /* Temně modrá/břidlicová */
+            --text-main: #334155;
+            --text-light: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
+            color: var(--text-main);
+            background-color: var(--bg-light);
             line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
         }
 
-        /* Hlavička a navigace */
+        /* Moderní hlavička */
         header {
-            background-color: #2c3e50;
-            color: #fff;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        header h1 {
+        .logo {
             font-size: 1.5rem;
-            color: #e67e22; /* Řemeslná oranžová */
+            font-weight: 800;
+            color: var(--bg-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--primary);
         }
 
         nav a {
-            color: #fff;
+            color: var(--text-main);
             text-decoration: none;
-            margin-left: 20px;
+            margin-left: 2rem;
             font-weight: 500;
+            transition: color 0.2s;
         }
 
         nav a:hover {
-            color: #e67e22;
+            color: var(--primary);
         }
 
-        /* Hlavní poutač (Hero sekce) */
+        /* Hrdinská (Hero) sekce */
         .hero {
-            background-color: #34495e;
-            color: white;
-            padding: 6rem 5%;
+            background-color: var(--bg-dark);
+            color: var(--white);
+            padding: 10rem 5% 6rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        /* Ozdobný prvek na pozadí */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(15,23,42,0) 70%);
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            margin-bottom: 2.5rem;
         }
 
         .btn {
             display: inline-block;
-            background-color: #e67e22;
-            color: #fff;
-            padding: 12px 24px;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 1.1rem;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
         }
 
         .btn:hover {
-            background-color: #d35400;
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
         }
 
-        /* Sekce Služby */
+        /* Sekce služeb */
         .services {
-            padding: 4rem 5%;
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
             text-align: center;
+            font-size: 2.5rem;
+            color: var(--bg-dark);
+            margin-bottom: 1rem;
+            font-weight: 800;
         }
 
-        .services h2 {
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            color: #2c3e50;
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
         }
 
-        .cards {
-            display: flex;
-            justify-content: center;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            flex-wrap: wrap;
         }
 
         .card {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 300px;
-            text-align: left;
-            border-top: 4px solid #e67e22;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            background: #fff7ed;
+            padding: 1rem;
+            border-radius: 16px;
         }
 
         .card h3 {
+            font-size: 1.5rem;
+            color: var(--bg-dark);
             margin-bottom: 1rem;
-            color: #2c3e50;
+            font-weight: 700;
         }
 
-        /* Sekce Kontakt */
+        .card p {
+            color: var(--text-light);
+        }
+
+        /* Kontaktní sekce */
         .contact {
-            background-color: #ecf0f1;
-            padding: 4rem 5%;
+            background-color: var(--bg-dark);
+            color: var(--white);
+            padding: 6rem 5%;
             text-align: center;
         }
 
+        .contact-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
         .contact h2 {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: #2c3e50;
+            font-weight: 800;
         }
 
-        .contact-info {
+        .contact p {
+            color: #cbd5e1;
             font-size: 1.2rem;
-            margin-top: 1.5rem;
+            margin-bottom: 3rem;
         }
 
-        .contact-info p {
-            margin: 10px 0;
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .method {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .method span {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .method small {
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
         }
 
         /* Patička */
         footer {
-            background-color: #2c3e50;
-            color: #bdc3c7;
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem;
+            background: #0b1120;
+            color: #64748b;
             font-size: 0.9rem;
         }
 
-        /* Responzivita pro mobily */
+        /* Responzivita */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
-                gap: 15px;
+                padding: 1rem;
             }
-            .hero h2 {
-                font-size: 2rem;
+            nav {
+                margin-top: 1rem;
+            }
+            nav a {
+                margin: 0 1rem;
+            }
+            .hero {
+                padding-top: 8rem;
+            }
+            .contact-methods {
+                flex-direction: column;
+                gap: 2rem;
             }
         }
     </style>
@@ -165,49 +293,83 @@
 <body>
 
     <header>
-        <h1>Karel Novák</h1>
+        <a href="#" class="logo">🛠️ Jakub <span>Pomůže</span></a>
         <nav>
-            <a href="#sluzby">Služby</a>
+            <a href="#sluzby">Co dělám</a>
             <a href="#kontakt">Kontakt</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h2>Poctivé řemeslo a spolehlivost</h2>
-        <p>Ať už potřebujete smontovat nábytek, opravit kapající kohoutek nebo vymalovat pokoj, jsem tu pro vás. Kvalitní práce za férovou cenu.</p>
-        <a href="#kontakt" class="btn">Nezávazně poptat</a>
+        <div class="hero-content">
+            <h1>Nemáte čas, nářadí nebo <span>nervy?</span></h1>
+            <p>Od smontování té zpropadené skříně z IKEA až po kapající kohoutek. Nechte starosti na mně – přijedu, spravím, uklidím a vy máte klid.</p>
+            <a href="#kontakt" class="btn">Chci vyřešit problém</a>
+        </div>
     </section>
 
     <section id="sluzby" class="services">
-        <h2>S čím vám pomohu?</h2>
-        <div class="cards">
+        <h2 class="section-title">Konec výmluvám, jdeme na to</h2>
+        <p class="section-subtitle">S čím vším si u vás doma nebo na zahradě poradím?</p>
+        
+        <div class="grid">
             <div class="card">
-                <h3>🛠️ Drobné opravy</h3>
-                <p>Výměna zámků, oprava pantů, vrtání poliček, garnýží a zrcadel. Rychle a bez zbytečného nepořádku.</p>
+                <div class="icon">🪑</div>
+                <h3>Konec krabicím</h3>
+                <p>Návody nečtu, rovnou stavím. Smontuji jakýkoliv nábytek rychle, přesně a bez toho, aby vám zbyly "náhradní" šroubky.</p>
             </div>
             <div class="card">
-                <h3>🪑 Montáž nábytku</h3>
-                <p>Sestavení skříní, postelí a kuchyní z oblíbených obchodů (IKEA, XXXLutz, JYSK a další).</p>
+                <div class="icon">💧</div>
+                <h3>Když to kape</h3>
+                <p>Protékající záchod, ucpaný odpad nebo nová pračka? Vodu krotím spolehlivě. Žádné potopy, jen čistá práce.</p>
             </div>
             <div class="card">
-                <h3>💧 Voda a elektřina</h3>
-                <p>Výměna vodovodních baterií, zapojení pračky, instalace svítidel a výměna zásuvek.</p>
+                <div class="icon">⚡</div>
+                <h3>Když to nesvítí</h3>
+                <p>Výměna lustru, oprava zásuvky nebo bezpečné navrtání televize na zeď. Mám detektor kabelů a vím, kam (ne)vrtat.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🖌️</div>
+                <h3>Drobné úpravy</h3>
+                <p>Odřené rohy, díry ve zdi po starých obrazech nebo potřeba vymalovat jeden pokoj. Dám váš interiér zase do pucu.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🌳</div>
+                <h3>Zahrada a dům</h3>
+                <p>Čištění okapů, natření plotu, sekání trávy nebo oprava terasy. Postarám se o to, co vy odkládáte na příští víkend.</p>
+            </div>
+            <div class="card">
+                <div class="icon">🚀</div>
+                <h3>Rychlá záchrana</h3>
+                <p>Něco se pokazilo těsně před rodinnou oslavou? Pokud mi to čas dovolí, vyrážím okamžitě hasit vaše průšvihy.</p>
             </div>
         </div>
     </section>
 
     <section id="kontakt" class="contact">
-        <h2>Potřebujete pomoct? Ozvěte se mi.</h2>
-        <p>Působím v okolí Brna a přijímám zakázky každý všední den.</p>
-        <div class="contact-info">
-            <p><strong>📞 Telefon:</strong> +420 123 456 789</p>
-            <p><strong>✉️ E-mail:</strong> info@karel-remeslo.cz</p>
-            <p><strong>🕒 Pracovní doba:</strong> Po - Pá: 8:00 - 18:00</p>
+        <div class="contact-box">
+            <h2>Vyfoťte mi to a pošlete</h2>
+            <p>Nejrychlejší domluva je přes WhatsApp. Pošlete mi fotku toho, co je potřeba opravit, a já vám obratem napíšu, kolik to bude stát a kdy můžu dorazit.</p>
+            
+            <div class="contact-methods">
+                <div class="method">
+                    <small>Volejte nebo pište</small>
+                    <span>+420 777 123 456</span>
+                </div>
+                <div class="method">
+                    <small>Nebo rovnou na e-mail</small>
+                    <span>ahoj@jakubpomuze.cz</span>
+                </div>
+                <div class="method">
+                    <small>Kde působím</small>
+                    <span>Brno a okolí do 30 km</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Karel Novák - Poctivé řemeslo. Všechna práva vyhrazena.</p>
+        <p>&copy; 2026 Jakub Pomůže. Vyrobeno s láskou k poctivému řemeslu.</p>
     </footer>
 
 </body>
